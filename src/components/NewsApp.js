@@ -31,12 +31,10 @@ class NewsApp extends Component {
 
     componentWillMount() {
         var self = this;
-        if(this.props.count) {
-            fetch("https://newsapi.org/v2/sources?apiKey=ee8f84afffa34390a6edc70ac6025856")
-                .then(response => response.json())
-                .then(json =>   json.sources.slice(0, this.numOfSources)
-                                    .forEach(source => self.loadSources(source)));
-        }
+        fetch("https://newsapi.org/v2/sources?apiKey=ee8f84afffa34390a6edc70ac6025856")
+                        .then(response => response.json())
+                        .then(json =>   json.sources.slice(0, this.numOfSources)
+                                            .forEach(source => self.loadSources(source)));
     }
 
     loadSources(source) {
