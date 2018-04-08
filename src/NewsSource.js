@@ -3,10 +3,10 @@ import React, {Component} from 'react'
 class NewsSource extends Component {
     render() {
         return (
-        	<div>
-            	<a href={this.props.url}>{this.props.children}</a>
-           	</div>
-        )
+            <div onClick={() => this.props.action(this.props.id, false)}>
+                <a>{this.props.children}</a>
+            </div>
+        );
     }
 }
 
