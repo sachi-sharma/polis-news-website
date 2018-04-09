@@ -7,7 +7,6 @@ import LocalStorage from 'lowdb/adapters/LocalStorage'
 
 const adapter = new LocalStorage('db')
 const db = low(adapter)
-db.defaults({ articles: [] }).write()
 
 class NewsApp extends Component {
     constructor(props) {
@@ -18,6 +17,7 @@ class NewsApp extends Component {
             showArticles: false,
             showSavedArticles: false
         };
+        this.username = this.props.match.params.name
         this.numOfSources = 5;
         this.numOfArticles = 10;
         this.loadSources = this.loadSources.bind(this);
@@ -111,32 +111,36 @@ class NewsApp extends Component {
         else{
             this.setState({
                   showArticles: true,
-                  articles: db.get('articles').value(),
+                  articles: db.get('users')
+                                    .find({ "username": this.username }).get('savedArticles').value(),
                   showSavedArticles: true
             });
         }
     }
 
     saveArticle(description, title) {
-      db.get('articles')
-        .push({ description: description, title: title})
+      db.get('users')
+        .find({ "username": this.username })
+        .get("savedArticles")
+        .push({ "description": description, "title": title})
         .write()
-        console.log(db.get('articles').value());
     }
 
     deleteArticle(title) {
-        db.get('articles')
+      db.get('users')
+          .find({ "username": this.username })
+          .get("savedArticles")
           .remove({ title: title })
           .write()
 
-          var array = this.state.articles;
-          var index = -1;
-          for (var i = 0; i < array.length; i++)
-            if(array[i].title === title) {
-                array.splice(index, 1);
-                break;
-            }
-          this.setState({articles: array });
+      var array = this.state.articles;
+      var index = -1;
+      for (var i = 0; i < array.length; i++)
+        if(array[i].title === title) {
+            array.splice(index, 1);
+            break;
+        }
+      this.setState({articles: array });
     }
 
     render() {

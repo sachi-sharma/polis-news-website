@@ -2,15 +2,18 @@
   "users": [
     {
       "username": "marcosbozza",
-      "password": "lowdb"
+      "password": "polis",
+      "savedArticles": []
     },
     {
-      "username": "NdabaNdebele",
-      "password": "lowdb"
+      "username": "ndabaNdebele",
+      "password": "polis",
+      "savedArticles": []
     },
     {
       "username": "adichills",
-      "password": "lowdb"
+      "password": "polis",
+      "savedArticles": []
     }
   ]
 }

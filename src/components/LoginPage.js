@@ -18,6 +18,7 @@ class App extends Component {
 
   componentWillMount() {
       db.defaults(creds).write()
+      console.log(db.value())
   }
 
   onChange = (e) => {
@@ -31,7 +32,7 @@ class App extends Component {
     var isValidCreds = db.get('users')
                          .find({ username: this.state.username , password: this.state.password}).value();
     if(isValidCreds)
-        this.props.history.push('/home');
+        this.props.history.push('/home/'+this.state.username);
     else
         alert("Incorrect username/password");
   }
