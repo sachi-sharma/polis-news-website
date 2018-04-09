@@ -10,6 +10,7 @@ https://github.com/sachi-sharma/polis-news-website.git
 - npm install react-scripts --save
 - npm install react-toggle-display --save
 - npm install lowdb --save
+- npm install react-icons --save
 
 4. Start the application
 - npm start

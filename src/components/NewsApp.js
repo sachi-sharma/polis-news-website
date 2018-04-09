@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import NewsSource from './NewsSource'
-import NewsArticle from './NewsArticle'
+import NewsSource from './NewsSource';
+import NewsArticle from './NewsArticle';
 import ToggleDisplay from 'react-toggle-display';
-import low from 'lowdb'
-import LocalStorage from 'lowdb/adapters/LocalStorage'
+import low from 'lowdb';
+import FaPlus from 'react-icons/lib/fa/plus';
+import FaTrash from 'react-icons/lib/fa/trash';
+import LocalStorage from 'lowdb/adapters/LocalStorage';
 const apikey = require('./../data/newsapikey.json');
 
 class NewsApp extends Component {
@@ -85,10 +87,11 @@ class NewsApp extends Component {
                     <a href={article.url} target="_blank">Read More</a>
                     <br></br>
                     <ToggleDisplay key={"save"+i} show={!this.state.showSavedArticles}>
-                        <button onClick={() => this.saveArticle(article.description, article.title, article.url)}> Save</button>
+
+					    <button onClick={() => this.saveArticle(article.description, article.title, article.url)}><FaPlus /></button>
                     </ToggleDisplay>
                     <ToggleDisplay key={"del"+i} show={this.state.showSavedArticles}>
-                        <button onClick={() => this.deleteArticle(article.title)}> Delete</button>
+					    <button onClick={() => this.deleteArticle(article.title)}><FaTrash /></button>
                     </ToggleDisplay>
                 </NewsArticle>
             </div>
