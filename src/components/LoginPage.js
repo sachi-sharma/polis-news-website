@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import './../css/App.css';
 import low from 'lowdb'
 import LocalStorage from 'lowdb/adapters/LocalStorage'
-import Header from './Header'
-import Footer from './Footer'
 
 const creds = require('./../data/db.json');
 const adapter = new LocalStorage('db')
@@ -42,8 +40,6 @@ class App extends Component {
   render () {
     const { username, password} = this.state;
     return (
-    <div>
-    <Header />
       <div className="account_login">
         <div className="account_login_form">
           <h1>Login</h1>
@@ -54,8 +50,6 @@ class App extends Component {
           <button type="submit" onClick={this.login}> LOGIN </button>
         </div>
       </div>
-    <Footer />
-    </div>
     );
   }
 }

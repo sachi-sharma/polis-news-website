@@ -146,7 +146,7 @@ class NewsApp extends Component {
 
     render() {
         return (
-           <div>
+           <div className="wrapper">
                <div className="sources col-xs-12">
                     {this.state.sources.map(this.eachSource)}
                </div>
