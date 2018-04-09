@@ -34,3 +34,10 @@ News API
 1. Register with News Api and generate an api-key
    https://newsapi.org/
 2. Update the api key in data/newsapikey.json
+
+
+Known Issues
+-------------
+1. No logout
+2. Direct URL access to the home page, without login
+3.

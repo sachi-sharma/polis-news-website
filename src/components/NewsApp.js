@@ -79,13 +79,13 @@ class NewsApp extends Component {
         return (
             <div key={"div"+i} >
                 <NewsArticle key={"art"+i} id={article.id} url={article.url}>
-                    <h2>{article.title}</h2>
+                    <h2><a href={article.url} target="_blank">{article.title}</a></h2>
                     {article.description}
                     <br></br>
-                    <a href={article.url}>Read More</a>
+                    <a href={article.url} target="_blank">Read More</a>
                     <br></br>
                     <ToggleDisplay key={"save"+i} show={!this.state.showSavedArticles}>
-                        <button onClick={() => this.saveArticle(article.description, article.titile, article.url)}> Save</button>
+                        <button onClick={() => this.saveArticle(article.description, article.title, article.url)}> Save</button>
                     </ToggleDisplay>
                     <ToggleDisplay key={"del"+i} show={this.state.showSavedArticles}>
                         <button onClick={() => this.deleteArticle(article.title)}> Delete</button>
