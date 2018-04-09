@@ -64,11 +64,25 @@
     margin-top: 1em;
 }
 
+.wrapper .sources>a{
+    background: #337ab7d4;
+    color: white;
+    padding: 0.5em;
+    border-radius: 0.2em;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.wrapper .sources>a:hover{
+    background: #337ab7;
+}
+
 .wrapper .sources .source {
     margin: 5px;
     background-color: #d9edf7;
     padding: 5px;
     text-decoration: underline;
+    cursor: pointer;
 }
 
 .wrapper .articles {
@@ -83,6 +97,6 @@
     margin-bottom: 1em;
 }
 
-.wrapper .articles .article span h3, .wrapper .articles .article h2{
+.wrapper .articles span h3, .wrapper .articles .article h2 {
     margin: 0;
 }

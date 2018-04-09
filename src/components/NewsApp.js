@@ -158,6 +158,7 @@ class NewsApp extends Component {
            <div className="wrapper">
                <div className="sources col-xs-12">
                     {this.state.sources.map(this.eachSource)}
+               <br></br>
                <a onClick={() => this.handleClick('',true)}>Click to view saved articles</a>
                </div>
 
