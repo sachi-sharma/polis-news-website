@@ -149,11 +149,9 @@ class NewsApp extends Component {
            <div className="wrapper">
                <div className="sources col-xs-12">
                     {this.state.sources.map(this.eachSource)}
+               <a onClick={() => this.handleClick('',true)}>Click to view saved articles</a>
                </div>
-               <div>-------------</div>
-               <div>
-                <a onClick={() => this.handleClick('',true)}>Click to view saved articles</a>
-               </div>
+
                <ToggleDisplay show={this.state.showArticles}>
                    <div className="articles col-xs-12">
                         {this.state.articles.map(this.eachArticle)}
