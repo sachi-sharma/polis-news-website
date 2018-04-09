@@ -6,9 +6,6 @@ import low from 'lowdb'
 import LocalStorage from 'lowdb/adapters/LocalStorage'
 const apikey = require('./../data/newsapikey.json');
 
-const adapter = new LocalStorage('db')
-const db = low(adapter)
-
 class NewsApp extends Component {
     constructor(props) {
         super(props);
@@ -18,6 +15,9 @@ class NewsApp extends Component {
             showArticles: false,
             showSavedArticles: false
         };
+        var adapter = new LocalStorage('db')
+        this.db = low(adapter)
+
         this.username = this.props.match.params.name
         this.numOfSources = 5;
         this.numOfArticles = 10;
@@ -53,8 +53,7 @@ class NewsApp extends Component {
 
     eachSource(source, i) {
         return (
-            <NewsSource key={i} id={source.id}
-                url={source.url} action={this.handleClick}>
+            <NewsSource key={i} id={source.id} url={source.url} action={this.handleClick}>
                 {source.source}
             </NewsSource>
         );
@@ -67,7 +66,7 @@ class NewsApp extends Component {
                 {
                     author: article.author,
                     url: article.url,
-                    titile: article.title,
+                    title: article.title,
                     description: article.description,
                     source: article.source,
                     publishedAt:  new Date(article.publishedAt).toString()
@@ -79,21 +78,24 @@ class NewsApp extends Component {
     eachArticle(article, i) {
         return (
             <div key={"div"+i} >
-                <NewsArticle key={"art"+i} id={article.id}
-                    url={article.url} action={this.saveArticle}>
+                <NewsArticle key={"art"+i} id={article.id} url={article.url}>
+                    <h2>{article.title}</h2>
                     {article.description}
+                    <br></br>
+                    <a href={article.url}>Read More</a>
+                    <br></br>
+                    <ToggleDisplay key={"save"+i} show={!this.state.showSavedArticles}>
+                        <button onClick={() => this.saveArticle(article.description, article.titile, article.url)}> Save</button>
+                    </ToggleDisplay>
+                    <ToggleDisplay key={"del"+i} show={this.state.showSavedArticles}>
+                        <button onClick={() => this.deleteArticle(article.title)}> Delete</button>
+                    </ToggleDisplay>
                 </NewsArticle>
-                <ToggleDisplay key={"save"+i} show={!this.state.showSavedArticles}>
-                    <button onClick={() => this.saveArticle(article.description, article.titile)}> Save</button>
-                </ToggleDisplay>
-                <ToggleDisplay key={"del"+i} show={this.state.showSavedArticles}>
-                    <button onClick={() => this.deleteArticle(article.title)}> Delete</button>
-                </ToggleDisplay>
             </div>
         );
     }
 
-    handleClick(id, showSavedArticles) {
+    handleClick(id, showSavedArticles, name) {
         if(!showSavedArticles) {
             var self = this;
             fetch("https://newsapi.org/v2/top-headlines?sources="+id+"&apiKey="+apikey.apikey)
@@ -106,29 +108,33 @@ class NewsApp extends Component {
             self.setState({
                   showArticles: true,
                   articles:[],
-                  showSavedArticles: false
+                  showSavedArticles: false,
+                  source: name
             });
         }
         else{
             this.setState({
                   showArticles: true,
-                  articles: db.get('users')
+                  articles: this.db.get('users')
                                     .find({ "username": this.username }).get('savedArticles').value(),
                   showSavedArticles: true
             });
         }
     }
 
-    saveArticle(description, title) {
-      db.get('users')
+    saveArticle(description, title, url) {
+      console.log(this.db.value())
+      this.db.get('users')
         .find({ "username": this.username })
         .get("savedArticles")
-        .push({ "description": description, "title": title})
+        .push({ "description": description, "title": title, "url":url})
         .write()
+
+      console.log(this.db.value())
     }
 
     deleteArticle(title) {
-      db.get('users')
+      this.db.get('users')
           .find({ "username": this.username })
           .get("savedArticles")
           .remove({ title: title })
@@ -154,7 +160,14 @@ class NewsApp extends Component {
 
                <ToggleDisplay show={this.state.showArticles}>
                    <div className="articles col-xs-12">
-                        {this.state.articles.map(this.eachArticle)}
+                       <ToggleDisplay show={this.state.showSavedArticles}>
+                            <h3>Saved Articles</h3>
+                       </ToggleDisplay>
+
+                       <ToggleDisplay show={!this.state.showSavedArticles}>
+                            <h3>Articles from {this.state.source}</h3>
+                       </ToggleDisplay>
+                        {this.state.articles?this.state.articles.map(this.eachArticle):""}
                    </div>
                </ToggleDisplay>
            </div>
