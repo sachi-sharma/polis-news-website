@@ -27,3 +27,9 @@ Valid users:
     Password: polis
 3.  Username: adichills
     Password: polis
+
+
+News API
+---------
+1. Register with news api and generate an api-key
+2. Update the api key in data/newsapikey.json

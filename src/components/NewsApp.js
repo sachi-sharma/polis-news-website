@@ -4,6 +4,7 @@ import NewsArticle from './NewsArticle'
 import ToggleDisplay from 'react-toggle-display';
 import low from 'lowdb'
 import LocalStorage from 'lowdb/adapters/LocalStorage'
+const apikey = require('./../data/newsapikey.json');
 
 const adapter = new LocalStorage('db')
 const db = low(adapter)
@@ -31,7 +32,7 @@ class NewsApp extends Component {
 
     componentWillMount() {
         var self = this;
-        fetch("https://newsapi.org/v2/sources?apiKey=ee8f84afffa34390a6edc70ac6025856")
+        fetch("https://newsapi.org/v2/sources?apiKey="+apikey.apikey)
                         .then(response => response.json())
                         .then(json =>   json.sources.slice(0, this.numOfSources)
                                             .forEach(source => self.loadSources(source)));
@@ -95,7 +96,7 @@ class NewsApp extends Component {
     handleClick(id, showSavedArticles) {
         if(!showSavedArticles) {
             var self = this;
-            fetch("https://newsapi.org/v2/top-headlines?sources="+id+"&apiKey=ee8f84afffa34390a6edc70ac6025856")
+            fetch("https://newsapi.org/v2/top-headlines?sources="+id+"&apiKey="+apikey.apikey)
                             .then(response => response.json())
                             .then(json =>   json.articles.sort(
                                                              function(a, b) {

@@ -1,3 +1,32 @@
+.header, .footer {
+    background: #000;
+    border-bottom: 1px solid #3d3d3d;
+    height: 150px;
+    color: floralwhite;
+    font-family: monospace;
+    width: 100%;
+    position: absolute;
+}
+
+.header {
+    top:0;
+}
+
+.footer {
+    bottom:0
+}
+.header h1 {
+    top: 35px;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+}
+.footer a {
+    position: absolute;
+    right: 3em;
+    top: 8em;
+    text-decoration: underline;
+}
 .account_login {
   display: inline-block;
   position: fixed;
@@ -12,9 +41,7 @@
 }
 
 .account_login input {
-  width:100%;
   margin-bottom: 10px;
-  height: 20px;
   font-size: 20px;
 }
 
